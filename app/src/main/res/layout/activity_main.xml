@@ -1,18 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/colorBackground"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true">
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="B L I T Z"
+            android:textColor="@color/colorAccent"
+            android:textAlignment="center"
+            android:textSize="36sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PARTNER"
+            android:textColor="@color/colorAccent"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/logo"
+            android:layout_marginTop="50dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_rider_app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:layout_marginBottom="20dp"
+        android:text="LOOKING FOR THE RIDER APP?"
+        android:textColor="@color/colorLink"
+        android:textSize="12sp"
+        android:textAlignment="center" />
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_above="@+id/txt_rider_app"
+        android:layout_margin="16dp">
+        <Button
+            android:id="@+id/btnSignIn"
+            android:background="@color/colorAccent"
+            android:text="SIGN IN"
+            android:textColorHint="@color/colorPrimaryDark"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="6dp"/>
+        <Button
+            android:id="@+id/btnRegister"
+            android:background="@color/colorPrimaryDark"
+            android:text="REGISTER"
+            android:textColor="@color/colorAccent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="6dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
