@@ -60,7 +60,6 @@
                 android:text="Log in"
                 android:clickable="true"
                 android:textColor="@color/colorLink"/>
-
         </LinearLayout>
 
         <TextView
