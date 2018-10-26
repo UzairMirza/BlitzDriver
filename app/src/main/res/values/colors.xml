@@ -5,7 +5,10 @@
     <color name="colorAccent">#ffff</color>
     <color name="colorBackground">#000000</color>
     <color name="colorLink">#4000ff</color>
-    <color name="colorRippleEffect">#f816a463</color>
+    <color name="colorRippleEffect">#83838c</color>
     <color name="colorSignIn">#1fbad6</color>
-    <color name="colorRegister">#83838c</color>
+    <color name="baseReleaseColor">#212121</color>
+    <color name="basePressColor">#FAFAFA</color>
+    <color name="ballReleaseColor">#9E9E9E</color>
+    <color name="navBackground">#d8d6d6</color>
 </resources>
