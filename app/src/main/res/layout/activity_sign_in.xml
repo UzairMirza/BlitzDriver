@@ -33,14 +33,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="SIGN IN"
+            android:textColor="@color/colorAccent"
             android:background="@drawable/btn_sign_in_background"
-            android:layout_margin="10dp"
-            android:textColor="@android:color/white"/>
+            android:layout_margin="10dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="Forgot Password"
+            android:background="@drawable/btn_default_background"
             android:layout_gravity="center"/>
     </LinearLayout>
 </RelativeLayout>

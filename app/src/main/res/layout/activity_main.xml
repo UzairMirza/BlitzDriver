@@ -63,18 +63,18 @@
         android:layout_margin="16dp">
         <Button
             android:id="@+id/btnSignIn"
-            android:background="@color/colorAccent"
+            android:background="@drawable/btn_sign_in_background"
             android:text="SIGN IN"
-            android:textColorHint="@color/colorPrimaryDark"
+            android:textColor="@color/colorAccent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginRight="6dp"/>
         <Button
             android:id="@+id/btnRegister"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/btn_register_background"
             android:text="REGISTER"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
