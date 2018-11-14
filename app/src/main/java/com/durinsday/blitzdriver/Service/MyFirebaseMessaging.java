@@ -9,6 +9,8 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class MyFirebaseMessaging extends FirebaseMessagingService {
@@ -16,13 +18,19 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        LatLng customer_location = new Gson().fromJson(Objects.requireNonNull(remoteMessage.getNotification()).getBody(),LatLng.class);
+        if (remoteMessage.getData() != null) {
 
-        Intent intent = new Intent(getBaseContext(), CustomerCall.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("lat", customer_location.latitude);
-        intent.putExtra("lng", customer_location.longitude);
-        intent.putExtra("customer",remoteMessage.getNotification().getTitle());
-        startActivity(intent);
+            Map<String, String> data = new HashMap<>();
+            String customer = data.get("customer");
+            String lat = data.get("lat");
+            String lng = data.get("lng");
+
+            Intent intent = new Intent(getBaseContext(), CustomerCall.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("lat", lat);
+            intent.putExtra("lng", lng);
+            intent.putExtra("customer", customer);
+            startActivity(intent);
+        }
     }
 }

@@ -4,32 +4,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NavSettingsActivity"
-    android:background="@color/navBackground">
+    android:background="@color/colorPrimaryBg">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
         android:orientation="vertical"
-        android:gravity="center">
-        <Button
-            android:id="@+id/changeProfileInfo"
+        android:weightSum="2">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="EDIT PROFILE"
-            android:textSize="18sp"
-            android:textColor="@android:color/white"
-            android:background="@drawable/btn_sign_in_background"
-            android:layout_marginBottom="10dp"/>
-        <Button
-            android:id="@+id/changePassword"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:gravity="center">
+            <Button
+                android:id="@+id/changeProfileInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="UPDATE PROFILE"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/btn_sign_in_background"
+                android:layout_marginBottom="10dp"/>
+            <Button
+                android:id="@+id/changePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="UPDATE Password"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/btn_sign_in_background"
+                android:layout_marginBottom="10dp"/>
+            <Button
+                android:id="@+id/changeCarType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="UPDATE VEHICLE TYPE"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/btn_sign_in_background"
+                android:layout_marginBottom="10dp"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="EDIT Password"
-            android:textSize="18sp"
-            android:textColor="@android:color/white"
-            android:background="@drawable/btn_sign_in_background"
-            android:layout_marginBottom="10dp"/>
+            android:layout_height="0dp"
+            android:layout_weight=".5"/>
+
     </LinearLayout>
 
 </RelativeLayout>

@@ -1,15 +1,12 @@
 package com.durinsday.blitzdriver;
 
 import android.Manifest;
-import android.animation.ValueAnimator;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationListener;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -17,15 +14,13 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.durinsday.blitzdriver.Common.Common;
 import com.durinsday.blitzdriver.Helper.DirectionJSONParser;
+import com.durinsday.blitzdriver.Model.DataMessage;
 import com.durinsday.blitzdriver.Model.FCMResponse;
-import com.durinsday.blitzdriver.Model.Notification;
-import com.durinsday.blitzdriver.Model.Sender;
 import com.durinsday.blitzdriver.Model.Token;
 import com.durinsday.blitzdriver.Remote.IFCMService;
 import com.durinsday.blitzdriver.Remote.IGoogleAPI;
@@ -38,7 +33,6 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -46,16 +40,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
-import com.google.android.gms.maps.model.Dash;
-import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.gms.maps.model.SquareCap;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -64,10 +53,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -91,6 +79,8 @@ public class DriverTrackingActivity extends FragmentActivity implements OnMapRea
     static int DISPLACEMENT = 10;
 
     double riderLat, riderLng;
+
+    String customerId;
 
     Circle riderMarker;
     Marker driverMarker;
@@ -117,6 +107,7 @@ public class DriverTrackingActivity extends FragmentActivity implements OnMapRea
         if (getIntent() != null) {
             riderLat = getIntent().getDoubleExtra("lat", -1.0);
             riderLng = getIntent().getDoubleExtra("lng", -1.0);
+            customerId = getIntent().getStringExtra("customerId");
         }
 
         mService = Common.getGoogleAPI();
@@ -148,7 +139,7 @@ public class DriverTrackingActivity extends FragmentActivity implements OnMapRea
                     "mode=DRIVING" + "&" +
                     "transit_routing_preference=less_driving&" +
                     "origin=" + pickupLocation.getLatitude() + "," + pickupLocation.getLongitude() + "&" +
-                    "destination=" + mLastLocation.getLatitude() + "," + mLastLocation.getLongitude() + "&" +
+                    "destination=" + Common.mLastLocation.getLatitude() + "," + Common.mLastLocation.getLongitude() + "&" +
                     "key=" + getResources().getString(R.string.google_direction_api);
 
             mService.getPath(requestApi)
@@ -251,11 +242,12 @@ public class DriverTrackingActivity extends FragmentActivity implements OnMapRea
                 .title("Rider")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
-        geoFire = new GeoFire(FirebaseDatabase.getInstance().getReference(Common.driver_table));
+        geoFire = new GeoFire(FirebaseDatabase.getInstance().getReference(Common.driver_table).child(Common.currentBlitzDriver.getCarType()));
         GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(riderLat,riderLng), 0.05f);
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
+                sendArrivedNotification(customerId);
                 btnStartTrip.setEnabled(true);
             }
 
@@ -281,17 +273,42 @@ public class DriverTrackingActivity extends FragmentActivity implements OnMapRea
         });
     }
 
+    private void sendArrivedNotification(String customerId) {
+        Token token = new Token(customerId);
+//        Notification notification = new Notification("Arrived", String.format("The driver %s has arrived at your location", Common.currentBlitzDriver.getName()));
+//        Sender sender = new Sender(token.getToken(), notification);
+
+        Map<String, String> content = new HashMap<>();
+        content.put("title", "Arrived");
+        content.put("message", String.format("The driver %s has arrived at your location", Common.currentBlitzDriver.getName()));
+        DataMessage dataMessage = new DataMessage(token.getToken(),content);
+
+        mFCMService.sendMessage(dataMessage).enqueue(new Callback<FCMResponse>() {
+            @Override
+            public void onResponse(Call<FCMResponse> call, Response<FCMResponse> response) {
+                if (response.body().success!=1){
+                    Toast.makeText(DriverTrackingActivity.this,"Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FCMResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
 
     private void displayLocation() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {
+        Common.mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (Common.mLastLocation != null) {
 
-            final double latitude = mLastLocation.getLatitude();
-            final double longitude = mLastLocation.getLongitude();
+            final double latitude = Common.mLastLocation.getLatitude();
+            final double longitude = Common.mLastLocation.getLongitude();
 
             if (driverMarker != null) {
                 driverMarker.remove();
@@ -312,7 +329,7 @@ public class DriverTrackingActivity extends FragmentActivity implements OnMapRea
     }
 
     private void getDirection() {
-        LatLng currentPosition = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+        LatLng currentPosition = new LatLng(Common.mLastLocation.getLatitude(), Common.mLastLocation.getLongitude());
 
         String requestApi = null;
         try {

@@ -1,15 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TermsAndConditionsActivity">
+    tools:context=".TermsAndConditionsActivity"
+    android:scrollbars="vertical"
+    android:background="@color/colorPrimaryBg">
 
-    <TextView
-        android:id="@+id/legalTerms"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:scrollbarAlwaysDrawVerticalTrack="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:id="@+id/headingLegal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Legal"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/headingTerms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PAKISTAN's Terms of Use"
+                android:layout_below="@+id/headingLegal"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/headingFirst"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. Contractual Relationship"
+                android:layout_below="@+id/headingTerms"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/textFirst"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headingFirst"
+                android:scrollbars="vertical"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/headingSecond"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2. Arbitration Agreement"
+                android:layout_below="@+id/textFirst"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/textSecond"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headingSecond"
+                android:scrollbars="vertical"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/headingThird"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3. The Services"
+                android:layout_below="@+id/textSecond"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/textThird"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headingThird"
+                android:scrollbars="vertical"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/headingFourth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4. Access and Use of the Services"
+                android:layout_below="@+id/textThird"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/textFourth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headingFourth"
+                android:scrollbars="vertical"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/headingFifth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5. Payment"
+                android:layout_below="@+id/textFourth"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/textFifth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headingFifth"
+                android:scrollbars="vertical"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/headingSixth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6. Disclaimer"
+                android:layout_below="@+id/textFifth"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/textSixth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headingSixth"
+                android:scrollbars="vertical"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/headingSeventh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7. Other Provisions"
+                android:layout_below="@+id/textSixth"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/textSeventh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headingSeventh"
+                android:scrollbars="vertical"
+                android:textColor="@android:color/black"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

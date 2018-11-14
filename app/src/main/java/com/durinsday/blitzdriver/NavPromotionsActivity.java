@@ -2,6 +2,9 @@ package com.durinsday.blitzdriver;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
+
+import com.durinsday.blitzdriver.Common.Common;
 
 public class NavPromotionsActivity extends AppCompatActivity {
 

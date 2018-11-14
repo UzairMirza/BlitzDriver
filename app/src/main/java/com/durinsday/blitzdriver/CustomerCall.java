@@ -1,43 +1,29 @@
 package com.durinsday.blitzdriver;
 
-import android.animation.ValueAnimator;
 import android.content.Intent;
-import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.durinsday.blitzdriver.Common.Common;
+import com.durinsday.blitzdriver.Model.DataMessage;
 import com.durinsday.blitzdriver.Model.FCMResponse;
-import com.durinsday.blitzdriver.Model.Notification;
-import com.durinsday.blitzdriver.Model.Sender;
 import com.durinsday.blitzdriver.Model.Token;
 import com.durinsday.blitzdriver.Remote.IFCMService;
 import com.durinsday.blitzdriver.Remote.IGoogleAPI;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.JointType;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.gms.maps.model.SquareCap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Driver;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -84,6 +70,7 @@ public class CustomerCall extends AppCompatActivity {
                 Intent intent = new Intent(CustomerCall.this, DriverTrackingActivity.class);
                 intent.putExtra("lat", lat);
                 intent.putExtra("lng", lng);
+                intent.putExtra("customerId", customerId);
 
                 startActivity(intent);
                 finish();
@@ -102,17 +89,23 @@ public class CustomerCall extends AppCompatActivity {
             customerId = getIntent().getStringExtra("customer");
 
             getDirection(lat,lng);
-        }
+}
 
     }
 
     private void cancelBooking(String customerId) {
         Token token = new Token(customerId);
 
-        Notification notification = new Notification("Cancel","Your request was rejected by the Driver");
-        Sender sender = new Sender(token.getToken(),notification);
+//        Notification notification = new Notification("Cancel","Your request was rejected by the Driver");
+//        Sender sender = new Sender(token.getToken(),notification);
 
-        mFCMService.sendMessage(sender)
+        Map<String, String> content = new HashMap<>();
+        content.put("title", "Cancel");
+        content.put("message", "Your request was rejected by the Driver");
+        DataMessage dataMessage = new DataMessage(token.getToken(),content);
+
+
+        mFCMService.sendMessage(dataMessage)
                 .enqueue(new Callback<FCMResponse>() {
                     @Override
                     public void onResponse(Call<FCMResponse> call, Response<FCMResponse> response) {

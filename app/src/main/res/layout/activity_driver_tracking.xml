@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="START TRIP"
-        android:enabled="false"
+        android:enabled="true"
         android:textColor="@color/colorAccent"
         android:layout_alignParentBottom="true"
         android:background="@drawable/btn_sign_in_background"/>

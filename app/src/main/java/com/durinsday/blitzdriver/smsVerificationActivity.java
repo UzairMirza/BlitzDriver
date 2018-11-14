@@ -3,7 +3,6 @@ package com.durinsday.blitzdriver;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,10 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.durinsday.blitzdriver.Common.Common;
-import com.durinsday.blitzdriver.Model.User;
+import com.durinsday.blitzdriver.Model.BlitzDriver;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,6 +37,7 @@ public class smsVerificationActivity extends AppCompatActivity {
 
     EditText verificaionCode;
     EditText phoneNumber;
+    TextView phoneCode;
     Button btnVerify;
     Button btnVerificationCode;
     LinearLayout layoutVerification;
@@ -52,6 +53,7 @@ public class smsVerificationActivity extends AppCompatActivity {
     String intEmail;
     String intPass;
 
+    String carType = "uberX";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class smsVerificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sms_verification);
 
         verificaionCode = findViewById(R.id.verificationCode);
+        phoneCode = findViewById(R.id.phoneCode);
         phoneNumber = findViewById(R.id.phoneNumber);
         btnVerify = findViewById(R.id.btnVerify);
         btnVerificationCode = findViewById(R.id.btnVerificationCode);
@@ -80,7 +83,7 @@ public class smsVerificationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                phNumber = phoneNumber.getText().toString();
+                phNumber = phoneCode.getText().toString() + phoneNumber.getText().toString();
                 if (TextUtils.isEmpty(phNumber) || phNumber.length()<13){
                     Toast.makeText(smsVerificationActivity.this, "Please enter correct Phone Number", Toast.LENGTH_SHORT).show();
                 }
@@ -88,6 +91,7 @@ public class smsVerificationActivity extends AppCompatActivity {
                     Toast.makeText(smsVerificationActivity.this, "Maximum 10 digits", Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    phoneCode.setVisibility(View.INVISIBLE);
                     loadingBar.setTitle("Phone Verification");
                     loadingBar.setMessage("Verification in progress");
                     loadingBar.setCanceledOnTouchOutside(false);
@@ -194,12 +198,13 @@ public class smsVerificationActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         String id = users.push().getKey();
-                        final User user = new User(email, pass, name, phNumber, id);
-                        user.setEmail(email);
-                        user.setPassword(pass);
-                        user.setName(name);
-                        user.setPhone(phNumber);
-                        users.child(id).setValue(user)
+                        final BlitzDriver blitzDriver = new BlitzDriver(email, pass, name, phNumber, id, carType);
+                        blitzDriver.setEmail(email);
+                        blitzDriver.setPassword(pass);
+                        blitzDriver.setName(name);
+                        blitzDriver.setPhone(phNumber);
+                        blitzDriver.setCarType(carType);
+                        users.child(id).setValue(blitzDriver)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -208,8 +213,8 @@ public class smsVerificationActivity extends AppCompatActivity {
                                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                                     @Override
                                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                        Common.currentUser = dataSnapshot.getValue(User.class);
-                                                        SendUserToNextActivity();
+                                                        Common.currentBlitzDriver = dataSnapshot.getValue(BlitzDriver.class);
+                                                        startActivity(new Intent(smsVerificationActivity.this,MainActivity.class));
                                                     }
 
                                                     @Override
@@ -241,10 +246,5 @@ public class smsVerificationActivity extends AppCompatActivity {
                     }
                 });
 
-    }
-
-    private void SendUserToNextActivity(){
-        Intent intent = new Intent(smsVerificationActivity.this, SignInActivity.class);
-        startActivity(intent);
     }
 }

@@ -47,7 +47,6 @@
             android:label="@string/title_activity_driver_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".NavPromotionsActivity" />
-        <activity android:name=".NavTripHistory" />
         <activity android:name=".NavHelpActivity" />
         <activity android:name=".NavSettingsActivity" />
         <activity android:name=".TermsAndConditionsActivity" />
@@ -71,7 +70,10 @@
         <activity android:name=".ProfileChangeActivity" />
         <activity
             android:name=".DriverTripDetailActivity"
-            android:label="@string/title_activity_driver_trip_detail"></activity>
+            android:label="@string/title_activity_driver_trip_detail" />
+        <activity android:name=".ForgotPasswordActivity" />
+        <activity android:name=".NavProfileActivity" />
+        <activity android:name=".CarTypeActivity"></activity>
     </application>
 
 </manifest>

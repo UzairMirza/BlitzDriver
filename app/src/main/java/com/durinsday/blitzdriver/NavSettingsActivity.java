@@ -8,7 +8,7 @@ import android.widget.Button;
 
 public class NavSettingsActivity extends AppCompatActivity {
 
-    Button changePass, changeProf;
+    Button changePass, changeProf, changeCarType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +17,7 @@ public class NavSettingsActivity extends AppCompatActivity {
 
         changePass = findViewById(R.id.changePassword);
         changeProf = findViewById(R.id.changeProfileInfo);
+        changeCarType = findViewById(R.id.changeCarType);
 
         changeProf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,6 +31,14 @@ public class NavSettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(NavSettingsActivity.this,PasswordChangeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        changeCarType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NavSettingsActivity.this,CarTypeActivity.class);
                 startActivity(intent);
             }
         });

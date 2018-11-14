@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NavPromotionsActivity"
-    android:background="@color/navBackground">
+    android:background="@color/colorPrimaryBg">
 
     <TextView
         android:layout_width="wrap_content"

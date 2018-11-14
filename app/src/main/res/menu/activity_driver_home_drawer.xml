@@ -5,9 +5,9 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_trip_history"
+            android:id="@+id/nav_Profile"
 
-            android:title="Trip History" />
+            android:title="Profile" />
         <item
             android:id="@+id/nav_promotions"
 

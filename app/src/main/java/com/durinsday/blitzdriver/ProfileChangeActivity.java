@@ -1,17 +1,13 @@
 package com.durinsday.blitzdriver;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +20,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
+import java.util.Objects;
 
 public class ProfileChangeActivity extends AppCompatActivity {
 
     EditText newFirstName, newLastName, newPhoneNumber;
+    TextView newPhoneCode;
     Button editInfo;
 
 
@@ -39,6 +36,7 @@ public class ProfileChangeActivity extends AppCompatActivity {
 
         newFirstName = findViewById(R.id.newFirstName);
         newLastName = findViewById(R.id.newLastName);
+        newPhoneCode = findViewById(R.id.newPhoneCode);
         newPhoneNumber = findViewById(R.id.newPhoneNumber);
         editInfo = findViewById(R.id.editInfo);
 
@@ -46,25 +44,34 @@ public class ProfileChangeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String name = newFirstName.getText().toString() + " " + newLastName.getText().toString();
-                String phNumber = newPhoneNumber.getText().toString();
+                String phNumber = newPhoneCode.getText().toString() + newPhoneNumber.getText().toString();
 
                 Map<String, Object> updateInfo = new HashMap<>();
                 if(!TextUtils.isEmpty(name)){
                     updateInfo.put("name", name);
                 }
-                else if (!TextUtils.isEmpty(phNumber)){
+                if (TextUtils.isEmpty(newFirstName.getText().toString()) && TextUtils.isEmpty(newLastName.getText().toString())){
+                    String tname = Common.currentBlitzDriver.getName();
+                    updateInfo.put("name", tname);
+                }
+                if (!TextUtils.isEmpty(phNumber)){
                     updateInfo.put("phone", phNumber);
                 }
+                if (TextUtils.isEmpty(newPhoneNumber.getText().toString())){
+                    String tphNumber = Common.currentBlitzDriver.getPhone();
+                    updateInfo.put("phone", tphNumber);
+                }
                 DatabaseReference driverInformations = FirebaseDatabase.getInstance().getReference(Common.user_driver_table);
-                driverInformations.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                driverInformations.child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                         .updateChildren(updateInfo)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                sendToHome();
-                                if (task.isSuccessful()) {Toast.makeText(ProfileChangeActivity.this, "Information Updated!", Toast.LENGTH_SHORT).show();
+                                if (task.isSuccessful()) {
+                                    sendToHome();
+                                    Toast.makeText(ProfileChangeActivity.this, "Information Updated!", Toast.LENGTH_SHORT).show();
                                 }
-                                else {if (task.isSuccessful()){Toast.makeText(ProfileChangeActivity.this, "Information Update Failed!", Toast.LENGTH_SHORT).show();}
+                                else {Toast.makeText(ProfileChangeActivity.this, "Information Update Failed!", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

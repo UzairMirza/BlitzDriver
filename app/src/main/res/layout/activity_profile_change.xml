@@ -3,54 +3,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterActivity"
+    android:background="@color/colorPrimaryBg">
 
-        <LinearLayout
-            android:id="@+id/nameLayout"
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/nameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+        <EditText
+            android:id="@+id/newFirstName"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
-            <EditText
-                android:id="@+id/newFirstName"
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
-                android:hint="First Name"
-                android:singleLine="true" />
-
-            <EditText
-                android:id="@+id/newLastName"
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
-                android:hint="Last Name"
-                android:singleLine="true"/>
-        </LinearLayout>
+            android:hint="First Name"
+            android:textSize="19sp"
+            android:singleLine="true" />
 
         <EditText
-            android:id="@+id/newPhoneNumber"
-            android:layout_width="match_parent"
+            android:id="@+id/newLastName"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/nameLayout"
-            android:hint="Phone Number"
-            android:inputType="phone"
-            android:singleLine="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:hint="Last Name"
+            android:textSize="19sp"
+            android:singleLine="true"/>
+    </LinearLayout>
 
-        <Button
-            android:id="@+id/editInfo"
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/layoutNewPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameLayout"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/newPhoneCode"
+            android:layout_weight=".3"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/newPhoneNumber"
-            android:text="UPDATE"
-            android:textSize="18sp"
-            android:textColor="@android:color/white"
-            android:background="@drawable/btn_sign_in_background"
-            android:layout_margin="10dp"/>
+            android:text="+92"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"/>
+        <EditText
+            android:id="@+id/newPhoneNumber"
+            android:layout_weight="1.7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:textSize="20sp"
+            android:inputType="phone"
+            android:singleLine="true" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/editInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutNewPhoneNumber"
+        android:text="UPDATE"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/btn_sign_in_background"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
 </RelativeLayout>

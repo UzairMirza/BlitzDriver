@@ -2,7 +2,6 @@ package com.durinsday.blitzdriver;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,11 +12,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.durinsday.blitzdriver.Common.Common;
-import com.durinsday.blitzdriver.Model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.durinsday.blitzdriver.Model.BlitzDriver;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -25,11 +22,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 import io.paperdb.Paper;
 
 public class SignInActivity extends AppCompatActivity {
 
-    Button signIn;
+    Button signIn, btnForgotPassword;
     EditText driverEmail2, driverPassword2;
     FirebaseAuth mAuth;
     ProgressDialog loadingBar;
@@ -46,6 +45,7 @@ public class SignInActivity extends AppCompatActivity {
         signIn = findViewById(R.id.btnSignIn2);
         driverEmail2 = findViewById(R.id.driverEmail2);
         driverPassword2 = findViewById(R.id.driverPassword2);
+        btnForgotPassword = findViewById(R.id.btnForgotPassword);
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +56,16 @@ public class SignInActivity extends AppCompatActivity {
                 DriverSignIn(email, pass);
             }
         });
+        btnForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignInActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
+
 
     private void DriverSignIn(final String email, final String pass) {
         if (TextUtils.isEmpty(email)){
@@ -74,16 +83,15 @@ public class SignInActivity extends AppCompatActivity {
                 public void onSuccess(AuthResult authResult) {
                     loadingBar.dismiss();
                     FirebaseDatabase.getInstance().getReference(Common.user_driver_table)
-                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     Paper.book().write(Common.user_field,email);
                                     Paper.book().write(Common.pwd_field,pass);
 
-                                    Common.currentUser = dataSnapshot.getValue(User.class);
+                                    Common.currentBlitzDriver = dataSnapshot.getValue(BlitzDriver.class);
                                     startActivity(new Intent(SignInActivity.this,DriverHomeActivity.class));
-                                    finish();
                                 }
 
                                 @Override

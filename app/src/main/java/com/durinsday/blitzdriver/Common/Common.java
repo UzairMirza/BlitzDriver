@@ -2,7 +2,7 @@ package com.durinsday.blitzdriver.Common;
 
 import android.location.Location;
 
-import com.durinsday.blitzdriver.Model.User;
+import com.durinsday.blitzdriver.Model.BlitzDriver;
 import com.durinsday.blitzdriver.Remote.FCMClient;
 import com.durinsday.blitzdriver.Remote.IFCMService;
 import com.durinsday.blitzdriver.Remote.IGoogleAPI;
@@ -19,7 +19,7 @@ public class Common {
     public static final String token_table = "Tokens";
 
 
-    public static User currentUser;
+    public static BlitzDriver currentBlitzDriver;
 
     public static Location mLastLocation = null;
 

@@ -1,20 +1,20 @@
 package com.durinsday.blitzdriver.Model;
 
-public class User {
+public class BlitzDriver {
 
-    private String email, password, name, phone, id;
+    private String email, password, name, phone, id, carType;
 
-    public User(){
+    public BlitzDriver(){
 
     }
 
-
-    public  User(String email, String password, String name, String phone, String id){
-        this.email=email;
-        this.password=password;
-        this.name=name;
-        this.phone=phone;
-        this.id=id;
+    public BlitzDriver(String email, String password, String name, String phone, String id, String carType) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.phone = phone;
+        this.id = id;
+        this.carType = carType;
     }
 
     public String getEmail() {
@@ -55,6 +55,14 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getCarType() {
+        return carType;
+    }
+
+    public void setCarType(String carType) {
+        this.carType = carType;
     }
 }
 

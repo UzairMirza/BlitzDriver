@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity"
+    android:background="@color/colorPrimaryBg">
+
+    <RadioGroup
+        android:id="@+id/radioButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+
+        <RadioButton
+            android:id="@+id/radioGo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="uberX"/>
+
+        <RadioButton
+            android:id="@+id/radioBooking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="uberBlack"/>
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioButtons"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="BACK"
+            android:background="@drawable/btn_default_background"/>
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="UPDATE"
+            android:background="@drawable/btn_default_background"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

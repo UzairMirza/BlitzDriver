@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NavProfileActivity"
+    android:background="@color/colorPrimaryBg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="100dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name:"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimaryDark"/>
+            <TextView
+                android:id="@+id/profileName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="_________________________"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:textColor="@android:color/black"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/textMobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mobile:"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimaryDark"/>
+
+            <TextView
+                android:id="@+id/profileNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="_________________________"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:textColor="@android:color/black"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/textVehicleType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="VEHICLE:"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimaryDark"/>
+
+            <TextView
+                android:id="@+id/profileVehicleType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="_________________________"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:textColor="@android:color/black"
+                android:gravity="center_horizontal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/textChangeInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Want To Change Profile Info?"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/textClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:clickable="true"
+                    android:text="Click"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorLink"
+                    android:textStyle="bold"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+</RelativeLayout>
